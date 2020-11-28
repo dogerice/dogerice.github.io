@@ -104,15 +104,16 @@
 <p>新建完成后产生的目录如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
 
-<p>这样Hexo初始化就完成了，执行<code>  hexo s</code> 后打开浏览器访问<code>localhost:4000</code> 就可以看到博客页面了。</p>
+<p>这样Hexo初始化就完成了，执行<code>  hexo s</code> 后打开浏览器访问<code>localhost:4000</code> 就可以看到博客页面。</p>
 <h1 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h1><p>是时候开始你的第一篇文章了，执行下列命令来创建一篇新文章或者新的页面。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;hello world&quot;</span><br></pre></td></tr></table></figure>
 
 <p>在source/_posts会生成一个md文件hello-world-1.md(因为初始化时就会默认有一个hello-world.md了，所以这里是hello-world-1.md)，打开markdown编辑器开始写作。</p>
 <h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><p>先在GitHub上新建一个库，库名格式为：<code>用户名.github.io</code>  比如我的就是<code>dogerice.github.io</code> 。</p>
 <p>部署其实就是将hexo生成的静态页面放到这个库中，</p>
-<p>有两种方式：1、执行命令<code>hexo g</code> ，在目录下生成的public文件夹就是静态文件了，将public文件夹下的内容提交到刚才建的库中(不包含public本身)，然后浏览器访问<code>用户名.github.io</code> 就能看到页面了。</p>
-<p>2、使用hexo提供的一键部署（推荐）：</p>
+<p>有两种方式：</p>
+<p>方式1、执行命令<code>hexo g</code> ，在目录下生成的public文件夹就是静态文件了，将public文件夹下的内容提交到刚才建的库中(不包含public本身)，然后浏览器访问<code>用户名.github.io</code> 就能看到页面了。</p>
+<p>方式2、使用hexo提供的一键部署（推荐）：</p>
 <ol>
 <li><p>安装hexo-deployer-git：<code> npm install hexo-deployer-git --save</code> </p>
 </li>
@@ -128,7 +129,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/11/28/%E5%BC%80%E7%AF%87%E2%80%94%E2%80%94%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" data-id="cki1vqas600002cvq3t4u3mqs" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/11/28/%E5%BC%80%E7%AF%87%E2%80%94%E2%80%94%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" data-id="cki1w1xmo0000j0vq28tkbh7o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
@@ -179,7 +180,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/11/28/hello-world/" data-id="cki1vqasp00032cvqeyzsba59" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/11/28/hello-world/" data-id="cki1w1xn70003j0vqhcrlbxv7" class="article-share-link">Share</a>
       
       
     </footer>
