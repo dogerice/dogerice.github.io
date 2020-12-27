@@ -64,6 +64,304 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Markdown基本语法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/27/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" class="article-date">
+  <time datetime="2020-12-27T14:45:42.000Z" itemprop="datePublished">2020-12-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/27/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">Markdown基本语法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="一、标题"><a href="#一、标题" class="headerlink" title="一、标题"></a>一、标题</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 这是一级标题</span></span><br><span class="line"><span class="section">## 这是二级标题</span></span><br><span class="line"><span class="section">### 这是三级标题</span></span><br><span class="line"><span class="section">#### 这是四级标题</span></span><br><span class="line"><span class="section">##### 这是五级标题</span></span><br><span class="line"><span class="section">###### 这是六级标题</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="二、字体"><a href="#二、字体" class="headerlink" title="二、字体"></a>二、字体</h1><ul>
+<li><h5 id="加粗"><a href="#加粗" class="headerlink" title="加粗"></a>加粗</h5></li>
+</ul>
+<p>要加粗的文字左右分别用两个*号包起来</p>
+<ul>
+<li><h5 id="斜体"><a href="#斜体" class="headerlink" title="斜体"></a>斜体</h5></li>
+</ul>
+<p>要倾斜的文字左右分别用一个*号包起来</p>
+<ul>
+<li><h5 id="斜体加粗"><a href="#斜体加粗" class="headerlink" title="斜体加粗"></a>斜体加粗</h5></li>
+</ul>
+<p>要倾斜和加粗的文字左右分别用三个*号包起来</p>
+<ul>
+<li><h5 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h5></li>
+</ul>
+<p>要加删除线的文字左右分别用两个~~号包起来</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**这是加粗的文字**</span></span><br><span class="line"><span class="emphasis">*这是倾斜的文字*</span></span><br><span class="line"><span class="strong">**<span class="emphasis">*这是倾斜加粗的文字<span class="strong">**<span class="emphasis">*</span></span></span></span></span><br><span class="line"><span class="strong"><span class="emphasis"><span class="strong"><span class="emphasis">~~这是加删除线的文字~~</span></span></span></span></span><br></pre></td></tr></table></figure>
+
+<h1 id="三、引用"><a href="#三、引用" class="headerlink" title="三、引用"></a>三、引用</h1><p>在引用的文字前加&gt;即可。引用也可以嵌套，如加两个&gt;&gt;三个&gt;&gt;&gt;<br>n个…</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;这是引用内容</span><br><span class="line">&gt;&gt;这是引用内容</span><br><span class="line">&gt;&gt;&gt;&gt;这是引用内容</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这是引用内容</p>
+<blockquote>
+<p>这是引用内容</p>
+<blockquote>
+<blockquote>
+<p>这是引用内容</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<h1 id="四、分割线"><a href="#四、分割线" class="headerlink" title="四、分割线"></a>四、分割线</h1><p>三个或三个以上的-或*都可</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">----</span><br><span class="line"><span class="strong">**<span class="emphasis">*</span></span></span><br><span class="line"><span class="strong"><span class="emphasis"><span class="strong">****</span></span></span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<hr>
+<hr>
+<hr>
+<h1 id="五、图片"><a href="#五、图片" class="headerlink" title="五、图片"></a>五、图片</h1><p>语法：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">图片alt</span>](<span class="link">图片地址 &#x27;&#x27;图片title&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">图片alt就是显示在图片下面的文字，相当于对图片内容的解释。</span><br><span class="line">图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加</span><br><span class="line"></span><br><span class="line">实例：</span><br><span class="line">![blockchain](https://ss0.bdstatic.com/70cFvHSh<span class="emphasis">_Q1YnxGkpoWK1HF6hhy/it/</span></span><br><span class="line"><span class="emphasis">u=702257389,1274025419&amp;fm=27&amp;gp=0.jpg &quot;区块链&quot;)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="六、超链接"><a href="#六、超链接" class="headerlink" title="六、超链接"></a>六、超链接</h1><p>语法：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">超链接名</span>](<span class="link">超链接地址 &quot;超链接title&quot;</span>)</span><br><span class="line">title可加可不加</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://www.baidu.com/">baidu</a></p>
+<p>可以用html的a代替</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.jianshu.com/u/1f5ac0cf6a8b&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span></span>简书<span class="xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.jianshu.com/u/1f5ac0cf6a8b" target="_blank">简书</a></p>
+<h1 id="七、列表"><a href="#七、列表" class="headerlink" title="七、列表"></a>七、列表</h1><h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><p>语法：无序列表用-+*都可</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 列表内容</span><br><span class="line"><span class="bullet">+</span> 列表内容</span><br><span class="line"><span class="bullet">*</span> 列表内容</span><br><span class="line">注意带空格</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>aaaa</li>
+<li>bbbb</li>
+<li>cccc</li>
+</ul>
+<h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h3><p>语法：数字加点</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> aaa</span><br><span class="line"><span class="bullet">2.</span> bbb</span><br><span class="line"><span class="bullet">3.</span> ccc</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>aaa</li>
+<li>bbb</li>
+<li>ccc</li>
+</ol>
+<h3 id="列表嵌套"><a href="#列表嵌套" class="headerlink" title="列表嵌套"></a>列表嵌套</h3><p><strong>上一级和下一级之间敲三个空格即可</strong></p>
+<ul>
+<li>一<ul>
+<li>1111</li>
+<li>2222<ul>
+<li>2-1</li>
+<li>2-2</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>二<ul>
+<li>a</li>
+<li>b<ul>
+<li>b-1</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="八、表格"><a href="#八、表格" class="headerlink" title="八、表格"></a>八、表格</h1><p>语法：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">|表头|表头|表头|</span><br><span class="line">|---|:--:|---:|</span><br><span class="line">|内容|内容|内容|</span><br><span class="line">|内容|内容|内容|</span><br><span class="line"></span><br><span class="line">第二行分割表头和内容。</span><br><span class="line"><span class="bullet">-</span> 有一个就行，为了对齐，多加了几个</span><br><span class="line">文字默认居左</span><br><span class="line">-两边加：表示文字居中</span><br><span class="line">-右边加：表示文字居右</span><br><span class="line">注：原生的语法两边都要用 | 包起来。</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>表头</th>
+<th>表头</th>
+<th align="left">表头</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a</td>
+<td>b</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td>c</td>
+<td>d</td>
+<td align="left">2</td>
+</tr>
+</tbody></table>
+<h1 id="九、代码"><a href="#九、代码" class="headerlink" title="九、代码"></a>九、代码</h1><p>语法：</p>
+<p>单行代码：用一个反引号包起来</p>
+<p><code> 代码内容</code> </p>
+<p>代码块：用三个反引号包起来，且两边反引号独占一行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">代码。。。</span><br><span class="line">代码。。。</span><br><span class="line">代码。。。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="十、流程图"><a href="#十、流程图" class="headerlink" title="十、流程图"></a>十、流程图</h1><p>语法：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">​<span class="code">``` flow</span></span><br><span class="line"><span class="code">s=&gt;start: 开始</span></span><br><span class="line"><span class="code">e=&gt;end: 结束</span></span><br><span class="line"><span class="code">a=&gt;operation: 过程</span></span><br><span class="line"><span class="code">c=&gt;condition: 条件</span></span><br><span class="line"><span class="code">s-&gt;a-&gt;c-&gt;e</span></span><br><span class="line"><span class="code">c(yes)-&gt;e</span></span><br><span class="line"><span class="code">c(no)-&gt;a</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s&#x3D;&gt;start: 开始</span><br><span class="line">e&#x3D;&gt;end: 结束</span><br><span class="line">a&#x3D;&gt;operation: 过程</span><br><span class="line">c&#x3D;&gt;condition: 条件</span><br><span class="line">s-&gt;a-&gt;c-&gt;e</span><br><span class="line">c(yes)-&gt;e</span><br><span class="line">c(no)-&gt;a</span><br></pre></td></tr></table></figure>
+
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/27/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" data-id="ckj7co8xe0006f4vq3hr11v8u" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Hexo使用教程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/11/29/Hexo%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" class="article-date">
+  <time datetime="2020-11-28T16:12:47.000Z" itemprop="datePublished">2020-11-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/29/Hexo%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">Hexo使用教程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="一、常用命令"><a href="#一、常用命令" class="headerlink" title="一、常用命令"></a>一、常用命令</h1><h3 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h3><p>生成静态文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo g  #简写</span><br></pre></td></tr></table></figure>
+
+<h3 id="server"><a href="#server" class="headerlink" title="server"></a>server</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<p>启动服务器，默认情况下访问地址<code>http://localhost:4000/</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-p</code>, <code>--port</code></td>
+<td align="left">重设端口</td>
+</tr>
+<tr>
+<td align="left"><code>-s</code>, <code>--static</code></td>
+<td align="left">只使用静态文件</td>
+</tr>
+<tr>
+<td align="left"><code>-l</code>, <code>--log</code></td>
+<td align="left">启动日记记录，使用覆盖记录格式</td>
+</tr>
+</tbody></table>
+<h3 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br><span class="line">hexo d #简写</span><br></pre></td></tr></table></figure>
+
+<p>部署网站</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-g</code>, <code>--generate</code></td>
+<td align="left">部署之前预先生成静态文件</td>
+</tr>
+</tbody></table>
+<h3 id="list"><a href="#list" class="headerlink" title="list"></a>list</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo list &lt;type&gt;  #type= page, post, route, tag, category</span><br></pre></td></tr></table></figure>
+
+<p>列出网站资料</p>
+<h3 id="clean"><a href="#clean" class="headerlink" title="clean"></a>clean</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
+
+<p>清除缓存文件 <code>db.json</code> 和已生成的静态文件 <code>public</code>。</p>
+<h1 id="二、写作相关操作"><a href="#二、写作相关操作" class="headerlink" title="二、写作相关操作"></a>二、写作相关操作</h1><p>创建一篇新文章或新的页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="layout-布局-："><a href="#layout-布局-：" class="headerlink" title="layout(布局)："></a>layout(布局)：</h5><p>Hexo 有三种默认布局：post、page和draft。三种布局在创建时会被保存到不同的路径。而自定义的布局和post一致都存放在source/_post</p>
+<table>
+<thead>
+<tr>
+<th>layout</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>post</td>
+<td>source/_post</td>
+</tr>
+<tr>
+<td>page</td>
+<td>source</td>
+</tr>
+<tr>
+<td>draft</td>
+<td>source/_draft</td>
+</tr>
+</tbody></table>
+<p>post相当于正式文章，一旦创建就能在页面显示，<code>hexo new</code>时默认使用post布局。draft属于草稿，不会在页面中显示。</p>
+<h5 id="创建一篇草稿："><a href="#创建一篇草稿：" class="headerlink" title="创建一篇草稿："></a>创建一篇草稿：</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo new draft <span class="string">&quot;Hexo使用教程&quot;</span>  <span class="comment">#创建一篇草稿，若标题中含有空格则要加双引号</span></span></span><br></pre></td></tr></table></figure>
+
+<p>在source/_draft 下生成文件 <code>Hexo使用教程.md</code></p>
+<p>编写内容，<strong>发表草稿为正式文章</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo publish [layout] &lt;title&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo publish Hexo使用教程</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="文章中插入图片"><a href="#文章中插入图片" class="headerlink" title="文章中插入图片"></a>文章中插入图片</h5><p>先修改配置文件<code>config.yml</code> </p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>之后，在每次使用<code>hexo new &lt;title&gt;</code>创建新文章时会在同路径下自动创建一个与标题同名的文件夹，将图片放置到该文件夹中，但使用markdown语法引用图片时不会在hexo的页面中显示，需要通过以下hexo语法引用 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img example.jpg This is an example image %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也可通过 <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-renderer-marked">hexo-renderer-marked</a> 插件实现markdown语法的引用，hexo默认装了该插件，如果没有则使用如下命令安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-image --save </span><br></pre></td></tr></table></figure>
+
+<p>修改<code>config.yml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>在文章中使用markdown语法引入，就能在hexo页面中看到图片了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](example.jpg)</span><br></pre></td></tr></table></figure>
+
+<p>但注意不要使用<code>![](2020-11-29-Hexo使用教程/example.jpg)</code>，否则会加载不到图片</p>
+<p>正确引入图片后在typora中实际是无法预览的（因为图片和文章不在一个目录下），但在hexo中能显示。不过为了方便预览，也可以先引入相对路径的图片<code>![](2020-11-29-Hexo使用教程/example.jpg)</code>，在发布前再用<code>Ctrl+F</code>把路径替换掉<code>![](example.jpg)</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/29/Hexo%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-id="ckj7co8xc0003f4vq4t7yew24" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-开篇——博客搭建过程" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/11/28/%E5%BC%80%E7%AF%87%E2%80%94%E2%80%94%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" class="article-date">
@@ -124,15 +422,15 @@
 <p>稍后片刻待推送完成就可以访问 <code>用户名.github.io</code> 了，若推送过程中弹出github登录框并一直登录失败，建议更新git至最新版本</p>
 </li>
 </ol>
-<p>至此，博客搭建就结束了，关于hexo及markdown的细节在后面的博客中介绍</p>
+<p>至此，博客搭建就结束了。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/11/28/%E5%BC%80%E7%AF%87%E2%80%94%E2%80%94%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" data-id="cki1w1xmo0000j0vq28tkbh7o" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/11/28/%E5%BC%80%E7%AF%87%E2%80%94%E2%80%94%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" data-id="ckj7co8x00000f4vq75z7hay4" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
 
     </footer>
   </div>
@@ -180,7 +478,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/11/28/hello-world/" data-id="cki1w1xn70003j0vqhcrlbxv7" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/11/28/hello-world/" data-id="ckj7co8xd0004f4vq3t2bagfo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -203,7 +501,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li></ul>
     </div>
   </div>
 
@@ -213,7 +511,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/hexo/" style="font-size: 10px;">hexo</a>
+      <a href="/tags/Hexo/" style="font-size: 20px;">Hexo</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a>
     </div>
   </div>
 
@@ -222,7 +520,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li></ul>
     </div>
   </div>
 
@@ -233,6 +531,14 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/12/27/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">Markdown基本语法</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/29/Hexo%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">Hexo使用教程</a>
+          </li>
         
           <li>
             <a href="/2020/11/28/%E5%BC%80%E7%AF%87%E2%80%94%E2%80%94%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/">开篇——博客搭建过程</a>
