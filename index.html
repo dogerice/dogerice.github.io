@@ -64,6 +64,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JAVA与R交互——RServe方式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/03/JAVA%E4%B8%8ER%E4%BA%A4%E4%BA%92%E2%80%94%E2%80%94RServe%E6%96%B9%E5%BC%8F/" class="article-date">
+  <time datetime="2021-01-02T17:37:30.000Z" itemprop="datePublished">2021-01-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/03/JAVA%E4%B8%8ER%E4%BA%A4%E4%BA%92%E2%80%94%E2%80%94RServe%E6%96%B9%E5%BC%8F/">JAVA与R交互——RServe方式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>R语言适合做数据统计与分析，java适合开发应用系统，本文介绍如何以Rserve的方式在java中调用R</p>
+<p>Rserve：Rserve是一个基于TCP/IP协议的，允许R语言与其他语言通信的C/S结构的程序，支持C/C++,Java,PHP,Python,Ruby,Nodejs等</p>
+<p>环境准备： Centos7，R</p>
+<p><strong>Rserve安装</strong></p>
+<p><code>R #进入R交互环境</code></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt; install.packages(<span class="string">&quot;Rserve&quot;</span>)  <span class="comment">#安装Rserve包</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">installing via <span class="string">&#x27;install.libs.R&#x27;</span> to /usr/local/lib/R/site-library/Rserve</span><br><span class="line">** R</span><br><span class="line">** inst</span><br><span class="line">** preparing package <span class="keyword">for</span> lazy loading</span><br><span class="line">** help</span><br><span class="line">*** installing help indices</span><br><span class="line">** building package indices</span><br><span class="line">** testing <span class="keyword">if</span> installed package can be loaded</span><br><span class="line">* DONE (Rserve)</span><br><span class="line"></span><br><span class="line">&gt; q()  <span class="comment">#安装完成后退出</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>启动Rserve</strong></p>
+<p><code>R CMD Rserve --RS-enable-remote  # 加上RS-enable-remote参数后才可以远程调用</code></p>
+<p><strong>JAVA调用</strong></p>
+<p>引入依赖包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.rosuda.REngine<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>REngine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.rosuda.REngine<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>Rserve<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">RConnection rc = <span class="keyword">new</span> RConnection(<span class="string">&quot;10.16.3.230&quot;</span>,<span class="number">6311</span>);	<span class="comment">//建立连接；Rserve默认启动端口6311</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//取最大值</span></span><br><span class="line"><span class="keyword">int</span>[] arr = &#123;<span class="number">145</span>,<span class="number">202</span>,<span class="number">53</span>&#125;;</span><br><span class="line">rc.assign(<span class="string">&quot;arr&quot;</span>,arr);				<span class="comment">//声明变量</span></span><br><span class="line">REXP r1 = rc.eval(<span class="string">&quot;max(arr)&quot;</span>);	<span class="comment">//执行语句</span></span><br><span class="line">System.out.println(r1.asInteger());	<span class="comment">//获取结果</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印 R 的版本</span></span><br><span class="line">REXP r2 = c.eval(<span class="string">&quot;R.version.string&quot;</span>);</span><br><span class="line">System.out.println(r2.asString());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 调用 R 源文件 add.R 中的自定义函数:</span></span><br><span class="line"><span class="comment"> * myAdd &lt;- function(x, y) &#123;</span></span><br><span class="line"><span class="comment"> *         sum &lt;- x + y</span></span><br><span class="line"><span class="comment"> *         return (sum)</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">rc.eval(<span class="string">&quot;source(&#x27;/home/R/add.R&#x27;)&quot;</span>);			<span class="comment">//因为R的实际执行是在服务端，所以在读取文件等操作时读的是服务端的文件</span></span><br><span class="line"><span class="keyword">int</span> sum = rc.eval(<span class="string">&quot;myAdd(1, 2)&quot;</span>).asInteger();</span><br><span class="line">System.out.println(sum);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/01/03/JAVA%E4%B8%8ER%E4%BA%A4%E4%BA%92%E2%80%94%E2%80%94RServe%E6%96%B9%E5%BC%8F/" data-id="ckjfzywuq00064cvq6tri6bvw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/R/" rel="tag">R</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RServe/" rel="tag">RServe</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Chrome浏览器播放RTSP视频流解决方案" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/01/03/Chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E6%92%AD%E6%94%BERTSP%E8%A7%86%E9%A2%91%E6%B5%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="article-date">
@@ -137,7 +191,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/01/03/Chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E6%92%AD%E6%94%BERTSP%E8%A7%86%E9%A2%91%E6%B5%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" data-id="ckjfzmlbw0005ewvq4bvl9ng0" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/01/03/Chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E6%92%AD%E6%94%BERTSP%E8%A7%86%E9%A2%91%E6%B5%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" data-id="ckjfzywup00054cvq5bbffrsd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RTMP/" rel="tag">RTMP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RTSP/" rel="tag">RTSP</a></li></ul>
@@ -247,7 +301,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/01/03/Monit%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" data-id="ckjfzmlbx0006ewvqa5i8d1s0" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/01/03/Monit%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" data-id="ckjfzywv0000m4cvqaz1wddio" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Monit/" rel="tag">Monit</a></li></ul>
@@ -412,7 +466,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/12/27/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" data-id="ckjfzmlbq0002ewvq4r8sh05g" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/12/27/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" data-id="ckjfzywuo00044cvqbbv2e4hb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li></ul>
@@ -545,7 +599,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/11/29/Hexo%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-id="ckjfzmlbu0004ewvq3imf9zlb" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/11/29/Hexo%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-id="ckjfzywum00024cvqaf2aed8y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
@@ -622,7 +676,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/11/28/%E5%BC%80%E7%AF%87%E2%80%94%E2%80%94%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" data-id="ckjfzmlbn0001ewvq844b2493" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/11/28/%E5%BC%80%E7%AF%87%E2%80%94%E2%80%94%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" data-id="ckjfzywuk00014cvq0vd777rm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
@@ -647,7 +701,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Monit/" rel="tag">Monit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTMP/" rel="tag">RTMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTSP/" rel="tag">RTSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Monit/" rel="tag">Monit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/" rel="tag">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RServe/" rel="tag">RServe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTMP/" rel="tag">RTMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTSP/" rel="tag">RTSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li></ul>
     </div>
   </div>
 
@@ -657,7 +711,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/Hexo/" style="font-size: 20px;">Hexo</a> <a href="/tags/Monit/" style="font-size: 10px;">Monit</a> <a href="/tags/RTMP/" style="font-size: 10px;">RTMP</a> <a href="/tags/RTSP/" style="font-size: 10px;">RTSP</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a>
+      <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/Hexo/" style="font-size: 20px;">Hexo</a> <a href="/tags/Monit/" style="font-size: 10px;">Monit</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/RServe/" style="font-size: 10px;">RServe</a> <a href="/tags/RTMP/" style="font-size: 10px;">RTMP</a> <a href="/tags/RTSP/" style="font-size: 10px;">RTSP</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a>
     </div>
   </div>
 
@@ -679,6 +733,10 @@
       <ul>
         
           <li>
+            <a href="/2021/01/03/JAVA%E4%B8%8ER%E4%BA%A4%E4%BA%92%E2%80%94%E2%80%94RServe%E6%96%B9%E5%BC%8F/">JAVA与R交互——RServe方式</a>
+          </li>
+        
+          <li>
             <a href="/2021/01/03/Chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E6%92%AD%E6%94%BERTSP%E8%A7%86%E9%A2%91%E6%B5%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">Chrome浏览器播放RTSP视频流解决方案</a>
           </li>
         
@@ -692,10 +750,6 @@
         
           <li>
             <a href="/2020/11/29/Hexo%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">Hexo使用教程</a>
-          </li>
-        
-          <li>
-            <a href="/2020/11/28/%E5%BC%80%E7%AF%87%E2%80%94%E2%80%94%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/">开篇——博客搭建过程</a>
           </li>
         
       </ul>
