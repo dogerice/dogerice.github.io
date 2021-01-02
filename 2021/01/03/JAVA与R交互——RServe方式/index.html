@@ -15,7 +15,7 @@
 <meta property="og:description" content="R语言适合做数据统计与分析，java适合开发应用系统，本文介绍如何以Rserve的方式在java中调用R Rserve：Rserve是一个基于TCP&#x2F;IP协议的，允许R语言与其他语言通信的C&#x2F;S结构的程序，支持C&#x2F;C++,Java,PHP,Python,Ruby,Nodejs等 环境准备： Centos7，R Rserve安装 R #进入R交互环境 123456789101112131415&amp;gt">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-02T17:37:30.000Z">
-<meta property="article:modified_time" content="2021-01-02T17:45:39.643Z">
+<meta property="article:modified_time" content="2021-01-02T17:48:31.814Z">
 <meta property="article:author" content="Doge Rice">
 <meta property="article:tag" content="R">
 <meta property="article:tag" content="RServe">
@@ -104,13 +104,13 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.rosuda.REngine<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>REngine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.rosuda.REngine<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>Rserve<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>示例代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">RConnection rc = <span class="keyword">new</span> RConnection(<span class="string">&quot;10.16.3.230&quot;</span>,<span class="number">6311</span>);	<span class="comment">//建立连接；Rserve默认启动端口6311</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//取最大值</span></span><br><span class="line"><span class="keyword">int</span>[] arr = &#123;<span class="number">145</span>,<span class="number">202</span>,<span class="number">53</span>&#125;;</span><br><span class="line">rc.assign(<span class="string">&quot;arr&quot;</span>,arr);				<span class="comment">//声明变量</span></span><br><span class="line">REXP r1 = rc.eval(<span class="string">&quot;max(arr)&quot;</span>);	<span class="comment">//执行语句</span></span><br><span class="line">System.out.println(r1.asInteger());	<span class="comment">//获取结果</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印 R 的版本</span></span><br><span class="line">REXP r2 = c.eval(<span class="string">&quot;R.version.string&quot;</span>);</span><br><span class="line">System.out.println(r2.asString());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 调用 R 源文件 add.R 中的自定义函数:</span></span><br><span class="line"><span class="comment"> * myAdd &lt;- function(x, y) &#123;</span></span><br><span class="line"><span class="comment"> *         sum &lt;- x + y</span></span><br><span class="line"><span class="comment"> *         return (sum)</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">rc.eval(<span class="string">&quot;source(&#x27;/home/R/add.R&#x27;)&quot;</span>);			<span class="comment">//因为R的实际执行是在服务端，所以在读取文件等操作时读的是服务端的文件</span></span><br><span class="line"><span class="keyword">int</span> sum = rc.eval(<span class="string">&quot;myAdd(1, 2)&quot;</span>).asInteger();</span><br><span class="line">System.out.println(sum);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">RConnection rc = <span class="keyword">new</span> RConnection(<span class="string">&quot;10.16.3.230&quot;</span>,<span class="number">6311</span>);	<span class="comment">//建立连接；Rserve默认启动端口6311</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//取最大值</span></span><br><span class="line"><span class="keyword">int</span>[] arr = &#123;<span class="number">145</span>,<span class="number">202</span>,<span class="number">53</span>&#125;;</span><br><span class="line">rc.assign(<span class="string">&quot;arr&quot;</span>,arr);				<span class="comment">//声明变量</span></span><br><span class="line">REXP r1 = rc.eval(<span class="string">&quot;max(arr)&quot;</span>);	<span class="comment">//执行语句</span></span><br><span class="line">System.out.println(r1.asInteger());	<span class="comment">//获取结果</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印 R 的版本</span></span><br><span class="line">REXP r2 = c.eval(<span class="string">&quot;R.version.string&quot;</span>);</span><br><span class="line">System.out.println(r2.asString());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 调用 R 源文件 add.R 中的自定义函数:</span></span><br><span class="line"><span class="comment"> * myAdd &lt;- function(x, y) &#123;</span></span><br><span class="line"><span class="comment"> *         sum &lt;- x + y</span></span><br><span class="line"><span class="comment"> *         return (sum)</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">rc.eval(<span class="string">&quot;source(&#x27;/home/R/add.R&#x27;)&quot;</span>);			<span class="comment">//因为R的实际执行是在服务端，所以在读取文件等操作时读的是服务端的文件</span></span><br><span class="line"><span class="keyword">int</span> sum = rc.eval(<span class="string">&quot;myAdd(1, 2)&quot;</span>).asInteger();</span><br><span class="line">System.out.println(sum);</span><br></pre></td></tr></table></figure>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/01/03/JAVA%E4%B8%8ER%E4%BA%A4%E4%BA%92%E2%80%94%E2%80%94RServe%E6%96%B9%E5%BC%8F/" data-id="ckjfzywuq00064cvq6tri6bvw" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/01/03/JAVA%E4%B8%8ER%E4%BA%A4%E4%BA%92%E2%80%94%E2%80%94RServe%E6%96%B9%E5%BC%8F/" data-id="ckjg0rvfc0005e4vq8ur0fu77" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/R/" rel="tag">R</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RServe/" rel="tag">RServe</a></li></ul>
@@ -120,6 +120,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2021/01/03/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%8C%96%E7%9F%BF%E6%9C%A8%E9%A9%ACGuardMiner%E6%8E%92%E6%9F%A5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          记一次挖矿木马GuardMiner排查
+        
+      </div>
+    </a>
   
   
     <a href="/2021/01/03/Chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E6%92%AD%E6%94%BERTSP%E8%A7%86%E9%A2%91%E6%B5%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" id="article-nav-older" class="article-nav-link-wrap">
@@ -143,7 +152,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Monit/" rel="tag">Monit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/" rel="tag">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RServe/" rel="tag">RServe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTMP/" rel="tag">RTMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTSP/" rel="tag">RTSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GuardMiner/" rel="tag">GuardMiner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Monit/" rel="tag">Monit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/" rel="tag">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RServe/" rel="tag">RServe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTMP/" rel="tag">RTMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTSP/" rel="tag">RTSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%A8%E9%A9%AC/" rel="tag">木马</a></li></ul>
     </div>
   </div>
 
@@ -153,7 +162,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/Hexo/" style="font-size: 20px;">Hexo</a> <a href="/tags/Monit/" style="font-size: 10px;">Monit</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/RServe/" style="font-size: 10px;">RServe</a> <a href="/tags/RTMP/" style="font-size: 10px;">RTMP</a> <a href="/tags/RTSP/" style="font-size: 10px;">RTSP</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a>
+      <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GuardMiner/" style="font-size: 10px;">GuardMiner</a> <a href="/tags/Hexo/" style="font-size: 20px;">Hexo</a> <a href="/tags/Monit/" style="font-size: 10px;">Monit</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/RServe/" style="font-size: 10px;">RServe</a> <a href="/tags/RTMP/" style="font-size: 10px;">RTMP</a> <a href="/tags/RTSP/" style="font-size: 10px;">RTSP</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/%E6%9C%A8%E9%A9%AC/" style="font-size: 10px;">木马</a>
     </div>
   </div>
 
@@ -175,6 +184,10 @@
       <ul>
         
           <li>
+            <a href="/2021/01/03/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%8C%96%E7%9F%BF%E6%9C%A8%E9%A9%ACGuardMiner%E6%8E%92%E6%9F%A5/">记一次挖矿木马GuardMiner排查</a>
+          </li>
+        
+          <li>
             <a href="/2021/01/03/JAVA%E4%B8%8ER%E4%BA%A4%E4%BA%92%E2%80%94%E2%80%94RServe%E6%96%B9%E5%BC%8F/">JAVA与R交互——RServe方式</a>
           </li>
         
@@ -188,10 +201,6 @@
         
           <li>
             <a href="/2020/12/27/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">Markdown基本语法</a>
-          </li>
-        
-          <li>
-            <a href="/2020/11/29/Hexo%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">Hexo使用教程</a>
           </li>
         
       </ul>
