@@ -64,6 +64,114 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Monit安装配置与使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/03/Monit%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time datetime="2021-01-02T16:38:05.000Z" itemprop="datePublished">2021-01-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/03/Monit%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/">Monit安装配置与使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>​        Monit是一款跨平台的用来监控Unix/linux系统的开源工具。部署简单且非常轻量级（不到1M），不依赖任何第三方程序、插件或者库并且内置WEB UI。Monit可以监控服务器进程、文件、文件系统、网络状态（HTTP/SMTP等协议）、远程主机、服务器资源变化等等。 并且可以设定资源变化后需要做的动作，比如服务失败后自动重启，邮件告警等等。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>本文在Centos7环境下进行</p>
+<p>yum安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install monit</span><br></pre></td></tr></table></figure>
+
+<p>安装后，默认配置文件在/etc/monitrc (Centos6的话是monit.conf) 监控配置在/etc/monit.d/下</p>
+<p>monit -V 查看版本信息</p>
+<h1 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h1><p>修改/etc/monitrc文件</p>
+<p><code>vi /etc/monitrc</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">set daemon  30              #以daemon模式启动，检测周期30秒</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">set log syslog                        #日志输出到syslog，也可自定义位置（绝对路径）如: set logfile /home/monit/log/monit.log</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">web服务配置</span></span><br><span class="line">set httpd port 2812 and			#设置监控页面的端口</span><br><span class="line">    use address 10.16.3.230  	#设置监控页面IP或域名</span><br><span class="line"><span class="meta">#</span><span class="bash">    allow localhost        	<span class="comment">#只允许本地访问</span></span></span><br><span class="line">    allow admin:monit      		#设置登陆用户名密码 admin monit</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">配置邮件提醒</span></span><br><span class="line">set mailserver   localhost             #设置邮件服务器</span><br><span class="line"><span class="meta">#</span><span class="bash">                backup.bar.baz port 10025,  <span class="comment"># backup mailserver on port 10025</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">                localhost                   <span class="comment"># fallback relay</span></span></span><br><span class="line"></span><br><span class="line">set mail-format &#123;			#设置邮件格式，这里默认即可</span><br><span class="line">   from:    Monit &lt;monit@$HOST&gt;</span><br><span class="line">   subject: monit alert --  $EVENT $SERVICE</span><br><span class="line">   message: $EVENT Service $SERVICE</span><br><span class="line">                 Date:        $DATE</span><br><span class="line">                 Action:      $ACTION</span><br><span class="line">                 Host:        $HOST</span><br><span class="line">                 Description: $DESCRIPTION</span><br><span class="line"></span><br><span class="line">            Your faithful employee,</span><br><span class="line">            Monit</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">set alert liaohongbing@hisense.com           # 设置邮件接收人</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><p><code>monit -c /etc/monitrc</code></p>
+<p>启动后访问2812端口打开web页面 <a target="_blank" rel="noopener" href="http://127.0.0.1:2812/">http://127.0.0.1:2812</a> 显示如下页面表示启动成功</p>
+<p><img src="/2021/01/03/Monit%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/image-20210103004851457.png" alt="image-20210103004851457"></p>
+<p>点击页面中间的running 可查看monit的运行状态与日志 ， 下方的列表则为监控的内容，默认只有一个对系统的监控</p>
+<h1 id="Monit常用命令"><a href="#Monit常用命令" class="headerlink" title="Monit常用命令"></a>Monit常用命令</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">monit -t # 配置文件检测</span><br><span class="line">monit # 启动monit daemon</span><br><span class="line">monit -c /var/monit/monitrc # 启动monit daemon时指定配置文件</span><br><span class="line">monit reload # 重新加载配置文件</span><br><span class="line">monit status # 查看所有监控项务状态</span><br><span class="line">monit status nginx # 查看nginx服务状态</span><br><span class="line">monit stop all # 停止所有服务，这里需要注意的是，如果开启了自动重启功能，停止某个被监控的服务必须用monit stop xxx，若用系统命令停止服务，Monit会自动再把服务起来。</span><br><span class="line">monit stop nginx # 停止nginx服务</span><br><span class="line">monit start all # 启动所有服务</span><br><span class="line">monit start nginx # 启动nginx服务</span><br><span class="line">monit -V 	# 查看版本</span><br><span class="line">monit quit 	#退出monit</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>以上是monit的基本安装与运行，现在开始配置我们需要监控的服务</p>
+<h1 id="监控配置"><a href="#监控配置" class="headerlink" title="监控配置"></a>监控配置</h1><p>一般每个服务的监控配置文件都单独放在/etc/monit.d/下，也可以直接写到monit配置文件中（不推荐）</p>
+<p>以监控mysql进程为例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/monit.d/</span><br><span class="line">vi mysql		#新建mysql配置文件</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">需要提供pid文件 一般通过软件源安装的mysql的pid文件默认在/var/run/mysqld/mysqld.pid</span></span><br><span class="line">check process mysql with pidfile /var/run/mysqld/mysqld.pid                 </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">启动命令 注：命令必须写绝对路径</span></span><br><span class="line">    start program = &quot;/usr/bin/systemctl mysqld start&quot; with timeout 60 seconds </span><br><span class="line"><span class="meta">#</span><span class="bash">停止命令</span></span><br><span class="line">    stop program = &quot;/usr/bin/systemctl mysqld stop&quot;             </span><br></pre></td></tr></table></figure>
+
+<p>重启monit</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">monit quit</span><br><span class="line">monit -c &#x2F;etc&#x2F;monitrc</span><br></pre></td></tr></table></figure>
+
+<p>或重新加载配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">monit reload</span><br></pre></td></tr></table></figure>
+
+<p>页面出现如下条目证明配置成功</p>
+<p><img src="/2021/01/03/Monit%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/image-20210103005548503.png" alt="image-20210103005548503"></p>
+<p>当mysql发生异常导致关闭，monit就会会执行mysql的启动命令将其启动</p>
+<h1 id="常用监控案例"><a href="#常用监控案例" class="headerlink" title="常用监控案例"></a>常用监控案例</h1><p>monit支持对9种类型对象进行监控，包括process/file/fifo/filesystem/directory/system/program/network/host</p>
+<ul>
+<li>process: 监控指定进程是否存活</li>
+<li>file/fifo/filesystem/directory: 监控指定的文件或者目录是否存在，文件系统状况等</li>
+<li>system: 监控系统资源，包括CPU、内存和负载</li>
+<li>program: 监控指定程序的退出代码或者运行时间的长短</li>
+<li>network: 监控指定interface，包括up/down，带宽，误码率，流量，ping</li>
+<li>host: 监控其它主机，可以定义端口、tcp/udp、protocol（http/mysql/websocket）。protocol为http的时候，还可以进一步定义url和返回内容</li>
+</ul>
+<p>详情参考<a target="_blank" rel="noopener" href="https://mmonit.com/monit/documentation/monit.html#THE-MONIT-CONTROL-FILE">https://mmonit.com/monit/documentation/monit.html#THE-MONIT-CONTROL-FILE</a><br> <a target="_blank" rel="noopener" href="https://mmonit.com/wiki/Monit/ConfigurationExamples">https://mmonit.com/wiki/Monit/ConfigurationExamples</a></p>
+<p>下面介绍几种常用的监控配置</p>
+<ul>
+<li><p>监控进程</p>
+<p>在前面监控mysql的例子中可以看到，监控进程时是需要提供进程pid文件的，但很多程序不会自动生成pid文件怎么办？</p>
+<p>有两种方案：一是自己封装启动脚本，在启动进程的同时输出pid：</p>
+<p><strong>start.sh</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nohup java -jar -Dspring.config.location&#x3D;application.yml algorithm-mart-service.jar 2&gt;&amp;1 &amp;</span><br><span class="line">echo $! &gt; .&#x2F;algorithmmart.pid</span><br></pre></td></tr></table></figure>
+
+<p><strong>/etc/monit.d/algorithm</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">check process algorithm with pidfile &#x2F;usr&#x2F;local&#x2F;algorithm&#x2F;algorithmmart.pid</span><br><span class="line">        start program &#x3D; &quot;&#x2F;bin&#x2F;bash -c &#39;cd &#x2F;usr&#x2F;local&#x2F;algorithm &amp;&amp; .&#x2F;start.sh&#39;&quot;</span><br><span class="line">        stop program &#x3D; &quot;&#x2F;bin&#x2F;bash -c &#39;cd &#x2F;usr&#x2F;local&#x2F;algorithm &amp;&amp; .&#x2F;stop.sh&#39;&quot;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<p>二是使用monit提供的MATCHING：</p>
+<p><strong>/etc/monit.d/algorithm2</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">check process algorithm2 with MATCHING algorithm-mart-service.jar    #命令行匹配上algorithm-mart-service.jar就监控这个进程</span><br><span class="line">        if changed pid then alert</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件系统</p>
+<p><strong>/etc/monit.d/fs</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">check filesystem datafs with path &#x2F;dev&#x2F;sdb1</span><br><span class="line">               start program &#x3D; &quot;&#x2F;bin&#x2F;mount &#x2F;data&quot;</span><br><span class="line">               stop program &#x3D; &quot;&#x2F;bin&#x2F;umount &#x2F;data&quot;</span><br><span class="line">               if space usage &gt; 80% then alert</span><br><span class="line">               if space usage &gt; 99% then stop</span><br><span class="line">               if inode usage &gt; 30000 then alert</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件</p>
+<p><strong>/etc/monit.d/testFile</strong> </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">check file testFile with path /var/log/monit_target</span><br><span class="line">       if failed permission 700 then alert</span><br><span class="line">       if size &gt; 1000 MB then exec &quot;/usr/local/bin/rotate /var/log/monit_target&quot;  #当关注的事件发生，使用then exec &quot;your action&quot; 执行你想要的操作</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>端口</p>
+<p><strong>/etc/monit.d/portMoniter</strong> </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">check host portMonit with address 10.18.1.99</span><br><span class="line">               if failed ping then alert</span><br><span class="line">        if failed port 11183 protocol http then alert</span><br><span class="line">        if failed port 3306 protocol mysql with timeout 15 seconds then alert</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/01/03/Monit%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" data-id="ckjfyfwe80005d4vq94dm2r4d" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Markdown基本语法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/27/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" class="article-date">
@@ -217,7 +325,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/12/27/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" data-id="ckj7co8xe0006f4vq3hr11v8u" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/12/27/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" data-id="ckjfyfwe70004d4vqbitnbafw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li></ul>
@@ -350,7 +458,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/11/29/Hexo%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-id="ckj7co8xc0003f4vq4t7yew24" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/11/29/Hexo%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-id="ckjfyfwe50002d4vqfljchve7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
@@ -427,60 +535,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/11/28/%E5%BC%80%E7%AF%87%E2%80%94%E2%80%94%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" data-id="ckj7co8x00000f4vq75z7hay4" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/11/28/%E5%BC%80%E7%AF%87%E2%80%94%E2%80%94%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" data-id="ckjfyfwe30001d4vq0z9l3b1j" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/11/28/hello-world/" class="article-date">
-  <time datetime="2020-11-27T16:42:25.717Z" itemprop="datePublished">2020-11-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/11/28/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/11/28/hello-world/" data-id="ckj7co8xd0004f4vq3t2bagfo" class="article-share-link">Share</a>
-      
-      
     </footer>
   </div>
   
@@ -520,7 +579,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li></ul>
     </div>
   </div>
 
@@ -533,6 +592,10 @@
       <ul>
         
           <li>
+            <a href="/2021/01/03/Monit%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/">Monit安装配置与使用</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/27/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">Markdown基本语法</a>
           </li>
         
@@ -542,10 +605,6 @@
         
           <li>
             <a href="/2020/11/28/%E5%BC%80%E7%AF%87%E2%80%94%E2%80%94%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/">开篇——博客搭建过程</a>
-          </li>
-        
-          <li>
-            <a href="/2020/11/28/hello-world/">Hello World</a>
           </li>
         
       </ul>
@@ -560,7 +619,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 Doge Rice<br>
+      &copy; 2021 Doge Rice<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
