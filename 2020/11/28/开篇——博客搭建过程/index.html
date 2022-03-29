@@ -28,7 +28,7 @@
 <meta property="og:description" content="本博客使用Hexo搭建于GitHub Pages上，Hexo 是一款基于Node.js的博客框架，支持各种主题、插件完成个性化的博客。文章使用Markdown语法编写，可以简单高效地完成排版。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-27T16:53:55.000Z">
-<meta property="article:modified_time" content="2021-12-19T15:08:29.983Z">
+<meta property="article:modified_time" content="2022-03-29T16:23:26.629Z">
 <meta property="article:author" content="Doge Rice">
 <meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
@@ -213,7 +213,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-12-19 23:08:29" itemprop="dateModified" datetime="2021-12-19T23:08:29+08:00">2021-12-19</time>
+        <time title="修改时间：2022-03-30 00:23:26" itemprop="dateModified" datetime="2022-03-30T00:23:26+08:00">2022-03-30</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -269,7 +269,7 @@
 <li><p>安装hexo-deployer-git：<code> npm install hexo-deployer-git --save</code> </p>
 </li>
 <li><p>修改配置文件_config.yml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https:&#x2F;&#x2F;github.com&#x2F;dogerice&#x2F;dogerice.github.io.git #这里改成你自己的库地址</span><br><span class="line">  branch: master #推送的分支，我用的是master，默认应该是gh-pages，可以在库setting中查看或修改默认分支</span><br><span class="line">  message: one-command-deploy</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:dogerice&#x2F;dogerice.github.io.git #这里改成你自己的库地址(20220330更新：改成仓库的s&#39;sh协议地址，目前最新的git不支持https的推送)</span><br><span class="line">  branch: master #推送的分支，我用的是master，默认应该是gh-pages，可以在库setting中查看或修改默认分支</span><br><span class="line">  message: one-command-deploy</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>生成站点文件并推送至远程库。执行 <code>hexo clean &amp;&amp; hexo deploy</code>。</p>
 <p>稍后片刻待推送完成就可以访问 <code>用户名.github.io</code> 了，若推送过程中弹出github登录框并一直登录失败，建议更新git至最新版本</p>
